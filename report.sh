@@ -5,14 +5,13 @@ source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
 bucket=validator
-rpc_port=$(mantrachaind config | jq -r .node | cut -d : -f 3)
+rpc_port=$($BINARY config | jq -r .node | cut -d : -f 3)
 json=$(curl -s localhost:$rpc_port/status | jq .result.sync_info)
 pid=$(pgrep $BINARY)
 version=$($BINARY version)
 network=$($BINARY status | jq -r .NodeInfo.network)
 type="validator"
-foldersize1=$(du -hs ~/.pryzm | awk '{print $1}')
-#foldersize2=$(du -hs ~/pryzm | awk '{print $1}')
+foldersize1=$(du -hs $DATA | awk '{print $1}')
 latestBlock=$(echo $json | jq -r .latest_block_height)
 catchingUp=$(echo $json | jq -r .catching_up)
 votingPower=$($BINARY status 2>&1 | jq -r .ValidatorInfo.VotingPower)

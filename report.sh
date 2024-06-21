@@ -36,8 +36,9 @@ if $catchingUp
   message="height=$latestBlock"
  else 
   if [ $active -eq 1 ]; 
-  then status=active; 
-  else status=inactive;message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+   then status=active; 
+   else status=inactive;message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+ fi
 fi
 
 if $jailed
@@ -66,6 +67,7 @@ cat << EOF
   "moniker":"$moniker",
   "key":"$KEY",
   "wallet":"$wallet",
+  "wallet_eth":"$wallet_eth",
   "valoper":"$valoper",
   "pubkey":"$pubkey",
   "catchingUp":"$catchingUp",

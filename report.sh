@@ -17,7 +17,7 @@ network_height=$(curl -s https://rpc-zero-gravity-testnet.trusted-point.com/stat
 catchingUp=$(echo $json | jq -r .catching_up)
 votingPower=$($BINARY status 2>&1 | jq -r .ValidatorInfo.VotingPower)
 wallet=$(echo $PASS | $BINARY keys show $KEY -a)
-wallet_eth=$(echo "0x$($BINARY debug addr $($BINARY keys show $KEY -a) | grep hex | awk '{print $3}')")
+wallet_eth=$(echo "0x$($BINARY debug addr $(echo $PASS | $BINARY keys show $KEY -a) | grep hex | awk '{print $3}')")
 valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)
 moniker=$($BINARY query staking validator $valoper -o json | jq -r .description.moniker)
 pubkey=$($BINARY tendermint show-validator --log_format json | jq -r .key)
@@ -69,7 +69,8 @@ cat << EOF
   "catchingUp":"$catchingUp",
   "jailed":"$jailed",
   "active":$active,
-  "height":$latestBlock,
+  "local_height":$latest_block,
+  "network_height":$network_height,
   "votingPower":$votingPower,
   "tokens":$tokens,
   "threshold":$threshold,

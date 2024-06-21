@@ -35,7 +35,7 @@ if $catchingUp
   status="syncing"
   message="height=$latestBlock"
  else 
-  if [ $active -eq 1 ]; then status=active; else status=inactive; fi
+  if [ $active -eq 1 ]; then status=active; else status=inactive;message="height $latest_block/$network_height left $(( network_height - latest_block ))" fi
 fi
 
 if $jailed

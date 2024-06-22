@@ -5,5 +5,5 @@ source ~/scripts/$folder/cfg
 
 [ -z $1 ] && read -p "Key name ? " key || key=$1
 
-$BINARY keys add $key
+$BINARY keys add $key --eth
 $BINARY keys show $key --bech val

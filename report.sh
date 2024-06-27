@@ -7,6 +7,7 @@ source ~/.bash_profile
 network=testnet
 group=validator
 id=$ID
+public_rpc=https://rpc-testnet.0g.ai
 
 rpc_port=$($BINARY config | jq -r .node | cut -d : -f 3)
 json=$(curl -s localhost:$rpc_port/status | jq .result.sync_info)
@@ -15,7 +16,7 @@ version=$($BINARY version)
 chain=$CHAIN
 foldersize1=$(du -hs $DATA | awk '{print $1}')
 latest_block=$(echo $json | jq -r .latest_block_height)
-network_height=$(curl -s https://rpc-testnet.0g.ai/status | jq -r .result.sync_info.latest_block_height)
+network_height=$(curl -s $public_rpc/status | jq -r .result.sync_info.latest_block_height)
 catchingUp=$(echo $json | jq -r .catching_up)
 votingPower=$($BINARY status 2>&1 | jq -r .ValidatorInfo.VotingPower)
 wallet=$(echo $PASS | $BINARY keys show $KEY -a)
@@ -35,7 +36,7 @@ threshold=$($BINARY query tendermint-validator-set -o json | jq -r .validators[]
 if $catchingUp
  then 
   status="syncing"
-  message="height=$latestBlock"
+  message="height $latest_block/$network_height left $(( network_height - latest_block ))";
  else 
   if [ $active -eq 1 ]; 
    then status=active; 

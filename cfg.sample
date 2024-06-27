@@ -1,4 +1,4 @@
-KEY=
+KEY=main
 BINARY=0gchaind
 GAS_PRICE=99999ua0gi
 GAS_ADJ=1.4

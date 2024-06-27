@@ -11,6 +11,10 @@ source ~/.bash_profile
 #create cfg file
 cp ~/scripts/$folder/cfg.sample ~/scripts/$folder/cfg
 source ~/scripts/$folder/cfg
+nano ~/scripts/$folder/cfg
 
 #check version
 $BINARY version
+
+
+

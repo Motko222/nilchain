@@ -4,13 +4,15 @@ folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{prin
 source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
-bucket=validator
+network=testnet
+group=validator
+id=$ID
+
 rpc_port=$($BINARY config | jq -r .node | cut -d : -f 3)
 json=$(curl -s localhost:$rpc_port/status | jq .result.sync_info)
 pid=$(pgrep $BINARY)
 version=$($BINARY version)
 chain=$CHAIN
-type="validator"
 foldersize1=$(du -hs $DATA | awk '{print $1}')
 latest_block=$(echo $json | jq -r .latest_block_height)
 network_height=$(curl -s https://rpc-testnet.0g.ai/status | jq -r .result.sync_info.latest_block_height)
@@ -87,11 +89,11 @@ EOF
 if [ ! -z $INFLUX_HOST ]
 then
  curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$bucket&precision=ns" \
+ "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$INFLUX_BUCKET&precision=ns" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-    status,machine=$MACHINE,id=$ID,moniker=$moniker status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",tokens=\"$tokens\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\" $(date +%s%N) 
+    report,id=$id,machine=$MACHINE,grp=$group status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",network=\"$network\" $(date +%s%N) 
     "
 fi

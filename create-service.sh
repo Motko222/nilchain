@@ -10,7 +10,7 @@ After=network-online.target
 
 [Service]
 User=root
-ExecStart=/usr/local/bin/$BINARY start
+ExecStart=/root/go/bin/$BINARY start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535

@@ -5,3 +5,5 @@ GAS_ADJ=1.4
 PASS=
 DATA=/.0gchain
 DENOM=ua0gi
+CHAIN=zgtendermint_16600-2
+MONIKER=

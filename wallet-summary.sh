@@ -21,6 +21,7 @@ do
 
    stake=$($BINARY query staking delegation $wallet $valoper 2>/dev/null \
      | grep amount | awk '{print $2}' | sed 's/"//g' | awk '{print $1/1000000}' )
+   [ -z $stake ] && stake="-"
 
    printf "%-12s %9s %9s %9s\n" \
       $key $balance $stake $rewards

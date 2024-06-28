@@ -2,6 +2,7 @@
 
 folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
 source ~/scripts/$folder/cfg
+source ~/.bash_profile
 
 [ -z $1 ] && read -p "From ? " from || from=$1
 

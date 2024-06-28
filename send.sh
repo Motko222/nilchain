@@ -12,7 +12,10 @@ balance=$($BINARY query bank balances $wallet -o json 2>/dev/null \
 
 echo Balance $((balance))$DENOM
 
-[ -z $2 ] && read -p "To ? " to || to=$2
+def_to=$(echo $PASS | $BINARY keys show $KEY -a)
+[ -z $2 ] && read -p "Send to (default $def_to) ? " to || to=$2
+[ -z $to ] && to=$def_to
+
 [ -z $3 ] && read -p "Amount ? " amount || amount=$3
 
 echo $PASS | $BINARY tx bank send $from $to $amount$DENOM \

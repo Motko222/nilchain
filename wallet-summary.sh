@@ -12,7 +12,6 @@ keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
 
 for key in $keys
 do
-   key=$(echo $line | awk '{print $1}')
    wallet=$(echo $PASS | $BINARY keys show $key -a) 
    balance=$($BINARY query bank balances $wallet | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1/1000000}')
    valoper=$(echo $PASS | $BINARY keys show $KEY --bech val | grep valoper | awk '{print $3}')

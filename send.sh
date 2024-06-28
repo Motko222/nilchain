@@ -16,4 +16,4 @@ echo Balance $((balance))$DENOM
 [ -z $3 ] && read -p "Amount ? " amount || amount=$3
 
 echo $PASS | $BINARY tx bank send $from $to $amount$DENOM \
-   --gas-prices $GAS_PRICE --gas-adjustment $GAS_ADJ --gas auto -y | tail -1
+   --gas-adjustment $GAS_ADJ --gas auto -y

@@ -10,7 +10,7 @@ echo   "------------------------------------------------------------------------
 
 keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
 
-echo $keys | while read line
+for key in $keys
 do
    key=$(echo $line | awk '{print $1}')
    wallet=$(echo $PASS | $BINARY keys show $key -a) 

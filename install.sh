@@ -10,7 +10,7 @@ rm -r ~/0g-chain
 cd ~
 git clone -b v0.2.3 https://github.com/0glabs/0g-chain.git
 ./0g-chain/networks/testnet/install.sh
-source ~/.bash_profile
+source ~/.profile
 
 #create cfg file
 if [ -f ~/scripts/$folder/cfg ]
@@ -20,6 +20,8 @@ else
  cp ~/scripts/$folder/cfg.sample ~/scripts/$folder/cfg
  nano ~/scripts/$folder/cfg
 fi
+
+source ~/scripts/$folder/cfg
 
 #check version
 $BINARY version

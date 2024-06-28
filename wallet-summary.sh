@@ -14,6 +14,7 @@ for key in $keys
 do
    wallet=$(echo $PASS | $BINARY keys show $key -a) 
    balance=$($BINARY query bank balances $wallet | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1/1000000}')
+   [ -z $balance ] && balance="-"
    valoper=$(echo $PASS | $BINARY keys show $KEY --bech val | grep valoper | awk '{print $3}')
    rewards=$($BINARY query distribution rewards $wallet $valoper 2>/dev/null \
      | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1/1000000}')

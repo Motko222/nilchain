@@ -4,6 +4,12 @@ folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{prin
 source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
+read -p "Are you sure? " sure
+case $sure
+ y|Y|yes|YES|Yes) ;;
+ *) exit ;;
+esac
+
 sudo systemctl stop $BINARY.service
 sudo journalctl -u $BINARY.service -f --no-hostname -o cat
 

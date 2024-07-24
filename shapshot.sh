@@ -5,7 +5,7 @@ source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
 read -p "Are you sure? " sure
-case $sure
+case $sure in
  y|Y|yes|YES|Yes) ;;
  *) exit ;;
 esac

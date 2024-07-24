@@ -11,9 +11,6 @@ case $sure in
 esac
 
 sudo systemctl stop $BINARY.service
-sudo journalctl -u $BINARY.service -f --no-hostname -o cat
-
-sudo systemctl stop 0gchaind
 
 cp ~/.0gchain/data/priv_validator_state.json ~/.0gchain/priv_validator_state.json.backup
 

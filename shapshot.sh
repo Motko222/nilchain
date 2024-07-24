@@ -15,12 +15,12 @@ sudo journalctl -u $BINARY.service -f --no-hostname -o cat
 
 sudo systemctl stop 0gchaind
 
-cp $HOME/.0gchain/data/priv_validator_state.json $HOME/.0gchain/priv_validator_state.json.backup
+cp ~/.0gchain/data/priv_validator_state.json ~/.0gchain/priv_validator_state.json.backup
 
-0gchaind tendermint unsafe-reset-all --home $HOME/.0gchain --keep-addr-book
+0gchaind tendermint unsafe-reset-all --home ~/.0gchain --keep-addr-book
 curl https://snapshots-testnet.unitynodes.com/0gchain-testnet/0gchain-testnet-latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.0gchain
 
-mv $HOME/.0gchain/priv_validator_state.json.backup $HOME/.0gchain/data/priv_validator_state.json
+mv ~/.0gchain/priv_validator_state.json.backup ~/.0gchain/data/priv_validator_state.json
 
 sudo systemctl start $BINARY.service
 sudo journalctl -u $BINARY.service -f --no-hostname -o cat

@@ -4,11 +4,13 @@ folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{prin
 source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
+read -p "Keys? (blank for all) " keys
+[ -z $keys ] && keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
+
 echo   "---- SUMMARY --------------------------------------------------------------------------"
 printf "%-12s %9s %9s %9s %9s %9s\n" Id Balance Delegated Reward Da Uploads
 echo   "---------------------------------------------------------------------------------------"
 
-keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
 
 for key in $keys
 do

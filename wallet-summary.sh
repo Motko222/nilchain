@@ -5,7 +5,7 @@ source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
 echo   "---- SUMMARY --------------------------------------------------------------------------"
-printf "%-12s %9s %9s %9s\n" Id Balance Delegated Reward
+printf "%-12s %9s %9s %9s %9s\n" Id Balance Delegated Reward Da
 echo   "---------------------------------------------------------------------------------------"
 
 keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')

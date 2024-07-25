@@ -5,7 +5,7 @@ source ~/scripts/$folder/cfg
 source ~/.bash_profile
 
 echo   "---- SUMMARY --------------------------------------------------------------------------"
-printf "%-12s %9s %9s %9s %9s\n" Id Balance Delegated Reward Da
+printf "%-12s %9s %9s %9s %9s %9s\n" Id Balance Delegated Reward Da Uploads
 echo   "---------------------------------------------------------------------------------------"
 
 keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
@@ -26,7 +26,8 @@ do
    [ -z $stake ] && stake="-"
 
    da=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x0000000000000000000000000000000000001000)
+   uploads=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x8873cc79c5b3b5666535C825205C9a128B1D75F1)
 
-   printf "%-12s %9s %9s %9s %9s\n" \
-      $key $balance $stake $rewards $da
+   printf "%-12s %9s %9s %9s %9s %9s\n" \
+      $key $balance $stake $rewards $da $uploads
 done

@@ -23,6 +23,8 @@ do
      | grep amount | awk '{print $2}' | sed 's/"//g' | awk '{print $1/1000000}' )
    [ -z $stake ] && stake="-"
 
-   printf "%-12s %9s %9s %9s\n" \
-      $key $balance $stake $rewards
+   da=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x0000000000000000000000000000000000001000)
+
+   printf "%-12s %9s %9s %9s %9s\n" \
+      $key $balance $stake $rewards $da
 done

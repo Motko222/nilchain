@@ -2,6 +2,8 @@
 
 folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
 
+sudo apt install -y unzip wget golang-go
+
 #remove old binary and repo
 rm $(which 0gchaind)
 rm -r ~/0g-chain

@@ -9,7 +9,6 @@ printf "%-12s %9s %9s %9s %9s %9s\n" Id Balance Delegated Reward Da Uploads
 echo   "---------------------------------------------------------------------------------------"
 
 keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
-keys=main
 
 for key in $keys
 do

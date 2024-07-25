@@ -8,7 +8,7 @@ read -p "Keys? (blank for all) " keys
 [ -z $keys ] && keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
 
 echo   "---- SUMMARY --------------------------------------------------------------------------"
-printf "%-12s %-9s %-9s %-12s %-9s %-9s\n" Id Balance Delegated Reward Da Uploads
+printf "%-12s %-9s %-9s %-12s %-9s %-9s %-9s\n" Id Balance Delegated Reward Da Uploads Faucet
 echo   "---------------------------------------------------------------------------------------"
 
 
@@ -30,6 +30,6 @@ do
    uploads=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x8873cc79c5b3b5666535C825205C9a128B1D75F1)
    faucet=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x83c4A688174A8d4b99b4C8A2feC124dff79D58d2)
 
-   printf "%-12s %-9s %-9s %-12s %-9s %-9s\n" \
-      $key $balance $stake $rewards $da $uploads
+   printf "%-12s %-9s %-9s %-12s %-9s %-9s %-9s\n" \
+      $key $balance $stake $rewards $da $uploads $faucet
 done

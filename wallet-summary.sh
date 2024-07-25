@@ -21,7 +21,7 @@ do
    valoper=$(echo $PASS | $BINARY keys show $KEY --bech val | grep valoper | awk '{print $3}')
    rewards=$($BINARY query distribution rewards $wallet $valoper 2>/dev/null \
      | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1/1000000}')
-
+   [ -z $rewards ] && rewards="-"
    stake=$($BINARY query staking delegation $wallet $valoper 2>/dev/null \
      | grep amount | awk '{print $2}' | sed 's/"//g' | awk '{print $1/1000000}' )
    [ -z $stake ] && stake="-"

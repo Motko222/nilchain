@@ -8,14 +8,14 @@ read -p "Keys? (blank for all) " keys
 [ -z $keys ] && keys=$(echo $PASS | $BINARY keys list | grep -E 'name' | sed 's/  name: //g')
 
 echo   "---- SUMMARY --------------------------------------------------------------------------"
-printf "%-12s %-9s %-9s %-9s %-9s %-9s\n" Id Balance Delegated Reward Da Uploads
+printf "%-12s %-9s %-9s %-12s %-9s %-9s\n" Id Balance Delegated Reward Da Uploads
 echo   "---------------------------------------------------------------------------------------"
 
 
 for key in $keys
 do
    wallet=$(echo $PASS | $BINARY keys show $key -a) 
-   wallet_eth="0x$($BINARY debug addr $(echo $PASS | $BINARY keys show $KEY -a) | grep hex | awk '{print $3}')"
+   wallet_eth="0x$($BINARY debug addr $(echo $PASS | $BINARY keys show $key -a) | grep hex | awk '{print $3}')"
    balance=$($BINARY query bank balances $wallet | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1/1000000}')
    [ -z $balance ] && balance="-"
    valoper=$(echo $PASS | $BINARY keys show $KEY --bech val | grep valoper | awk '{print $3}')
@@ -29,6 +29,6 @@ do
    da=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x0000000000000000000000000000000000001000)
    uploads=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x8873cc79c5b3b5666535C825205C9a128B1D75F1)
 
-   printf "%-12s %-9s %-9s %-9s %-9s %-9s\n" \
+   printf "%-12s %-9s %-9s %-12s %-9s %-9s\n" \
       $key $balance $stake $rewards $da $uploads
 done

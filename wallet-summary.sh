@@ -27,7 +27,7 @@ do
    [ -z $stake ] && stake="-"
 
    da=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x0000000000000000000000000000000000001000)
-   uploads=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x8873cc79c5b3b5666535C825205C9a128B1D75F1)
+   uploads=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c -e 0x8873cc79c5b3b5666535C825205C9a128B1D75F1|0xB7e39604f47c0e4a6Ad092a281c1A8429c2440d3)
    faucet=$(curl -sX 'GET'   'https://chainscan-newton.0g.ai/api/v2/addresses/'$wallet_eth'/transactions?filter=to%20%7C%20from'   -H 'accept: application/json' | jq | grep -c 0x83c4A688174A8d4b99b4C8A2feC124dff79D58d2)
 
    printf "%-12s %-9s %-9s %-12s %-9s %-9s %-9s\n" \

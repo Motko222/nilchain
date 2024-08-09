@@ -10,8 +10,11 @@ source ~/.bash_profile
 [ -z $1 ] && read -p "From ($KEY) ? " key || key=$1
 [ -z $key ] && key=$KEY
 
+$BINARY query gov proposals --status voting_period -o json | jq -r '.proposals[] | {id,title}'
+
 [ -z $2 ] && read -p "Proposal ? " proposal || proposal=$2
 
-[ -z $3 ] && read -p "Option (yes/no/nowithveto/abstain) ? " option || option=$3
+[ -z $3 ] && read -p "Option (YES/no/nowithveto/abstain) ? " option || option=$3
+[ -z $option ] && option=yes
 
 echo $PASS | $BINARY tx gov vote $proposal $option --from $key --gas-adjustment $GAS_ADJ --gas auto -y

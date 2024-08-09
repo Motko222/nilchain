@@ -12,6 +12,6 @@ source ~/.bash_profile
 
 [ -z $2 ] && read -p "Proposal ? " proposal || proposal=$2
 
-[ -z $3 ] && read -p "Option ? " option || option=$3
+[ -z $3 ] && read -p "Option (yes/no/nowithveto/abstain) ? " option || option=$3
 
 echo $PASS | $BINARY tx gov vote $proposal $option --from $key --gas-adjustment $GAS_ADJ --gas auto -y

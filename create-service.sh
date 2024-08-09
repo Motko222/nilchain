@@ -10,7 +10,7 @@ After=network-online.target
 
 [Service]
 User=root
-ExecStart=/root/go/bin/$BINARY start
+ExecStart=/root/go/bin/$BINARY start --log_output_console
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535

@@ -10,15 +10,15 @@ id=$ID
 public_rpc=https://rpc-testnet.0g.ai
 
 rpc_port=$($BINARY config | jq -r .node | cut -d : -f 3)
-json=$(curl -s localhost:$rpc_port/status | jq .result.sync_info)
+json=$(curl -s localhost:$rpc_port/status | jq .result)
 pid=$(pgrep $BINARY)
 version=$($BINARY version)
 chain=$CHAIN
 foldersize1=$(du -hs $DATA | awk '{print $1}')
-latest_block=$(echo $json | jq -r .latest_block_height)
+latest_block=$(echo $json | jq -r .sync_info.latest_block_height)
 network_height=$(curl -s -X POST $public_rpc -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' | jq -r '.result' | xargs printf "%d\n")
-catchingUp=$(echo $json | jq -r .catching_up)
-node-id=$(echo $json | jq -r .result.node_info.id)@$(echo $json | jq -r .result.node_info.listen_addr)
+catchingUp=$(echo $json | jq -r .sync_info.catching_up)
+node_id=$(echo $json | jq -r .node_info.id)@$(echo $json | jq -r .node_info.listen_addr)
 votingPower=$($BINARY status 2>&1 | jq -r .ValidatorInfo.VotingPower)
 wallet=$(echo $PASS | $BINARY keys show $KEY -a)
 wallet_eth=$(echo "0x$($BINARY debug addr $(echo $PASS | $BINARY keys show $KEY -a) | grep hex | awk '{print $3}')")
@@ -70,7 +70,7 @@ cat << EOF
   "rpcport":"$rpc_port",
   "folder1":"$foldersize1",
   "moniker":"$moniker",
-  "node-id":"$node-id",
+  "node_id":"$node_id",
   "key":"$KEY",
   "wallet":"$wallet",
   "wallet_eth":"$wallet_eth",

@@ -2,6 +2,9 @@
 
 folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
 source ~/.bash_profile
+
+read -p "Tag? " tag
+
 sudo apt install -y unzip wget golang-go
 
 #remove old binary and repo
@@ -10,7 +13,7 @@ rm -r ~/0g-chain
 
 #install binary
 cd ~
-git clone -b v0.2.3 https://github.com/0glabs/0g-chain.git
+git clone -b $tag https://github.com/0glabs/0g-chain.git
 ./0g-chain/networks/testnet/install.sh
 source ~/.profile
 

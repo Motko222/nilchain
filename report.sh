@@ -49,7 +49,7 @@ fi
 if $jailed
  then
   status="jailed"
-  message="jailed"
+  message="height $latest_block/$network_height left $(( network_height - latest_block ))";
 fi 
 
 if [ -z $pid ];

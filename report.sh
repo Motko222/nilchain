@@ -7,7 +7,7 @@ source ~/.bash_profile
 network=testnet
 group=validator
 id=$ID
-public_rpc=https://rpc-testnet.0g.ai
+public_rpc=https://evmrpc-testnet.0g.ai/
 
 rpc_port=$($BINARY config | jq -r .node | cut -d : -f 3)
 json=$(curl -s localhost:$rpc_port/status | jq .result)

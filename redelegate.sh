@@ -12,7 +12,7 @@ source ~/.bash_profile
 wallet=$(echo $PASS | $BINARY keys show $key -a)
 $BINARY query staking delegations $wallet -o json | jq -c -r '.delegation_responses[] |  [ .balance.amount, .delegation.validator_address ]'
 
-[ -z $2 ] && read -p "To valoper ? " to_valoper || from_valoper=$2
+[ -z $2 ] && read -p "From valoper ? " from_valoper || from_valoper=$2
 [ -z $3 ] && read -p "To valoper ? " to_valoper || to_valoper=$3
 [ -z $4 ] && read -p "Amount ? " amount || amount=$4
 

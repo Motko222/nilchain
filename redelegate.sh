@@ -10,15 +10,10 @@ source ~/.bash_profile
 [ -z $key ] && key=$KEY
 
 wallet=$(echo $PASS | $BINARY keys show $key -a)
-balance=$($BINARY query bank balances $wallet -o json 2>/dev/null | jq -r '.balances[] | select(.denom=="'$DENOM'")' | jq -r .amount)
-echo "Balance: $balance $DENOM"
+$BINARY query staking delegations $wallet -o json | jq -c -r '.delegation_responses[] |  [ .balance.amount, .delegation.validator_address ]'
 
-def_valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)
-[ -z $2 ] && read -p "From valoper (default $def_valoper) ? " from_valoper || from_valoper=$2
-[ -z $from_valoper ] && from_valoper=$def_valoper
-
+[ -z $2 ] && read -p "To valoper ? " to_valoper || from_valoper=$2
 [ -z $3 ] && read -p "To valoper ? " to_valoper || to_valoper=$3
-
 [ -z $4 ] && read -p "Amount ? " amount || amount=$4
 
 echo $PASS | $BINARY tx staking redelegate $from_valoper $to_valoper $amount$DENOM --from $key \

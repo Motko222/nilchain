@@ -31,9 +31,9 @@ if [ -z $jailed ]; then jailed=false; fi
 tokens=$($BINARY query staking validator $valoper -o json | jq -r .tokens | awk '{print $1/1000000}')
 balance=$($BINARY query bank balances $wallet -o json 2>/dev/null \
       | jq -r '.balances[] | select(.denom=="'$DENOM'")' | jq -r .amount)
-active=$(( $($BINARY query tendermint-validator-set --page 1 | grep -c $pubkey ) + \
-           $($BINARY query tendermint-validator-set --page 2 | grep -c $pubkey) ))
-threshold=$($BINARY query tendermint-validator-set --page 2 -o json | jq -r .validators[].voting_power | tail -1)
+active=$(( $($BINARY query tendermint-validator-set --page 1 | grep -c $pubkey ) # + \
+         #  $($BINARY query tendermint-validator-set --page 2 | grep -c $pubkey) ))
+threshold=$($BINARY query tendermint-validator-set --page 1 -o json | jq -r .validators[].voting_power | tail -1)
 
 if $catchingUp
  then 

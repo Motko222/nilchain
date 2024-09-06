@@ -1,0 +1,10 @@
+KEY=main
+BINARY=nilchaind
+GAS_PRICE=1unil
+GAS_ADJ=1.4
+PASS=
+DATA=~/.nillionapp
+DENOM=unil
+CHAIN=nillion-chain-testnet-1
+MONIKER=
+ID=

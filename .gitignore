@@ -1,3 +1,3 @@
-cfg*
-loc-*
+config*
+local-*
 !*.sample

@@ -11,7 +11,7 @@ owner=$OWNER
 id=$ID
 chain=$CHAIN
 
-rpc=$($BINARY config get client node | sed 's/\"//g')
+rpc=$($BINARY config get client node | sed 's/\"//g' | sed 's/tcp:\/\///g')
 json=$(curl -s $rpc/status | jq .result)
 pid=$(pgrep $BINARY)
 version=$($BINARY version)

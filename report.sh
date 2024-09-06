@@ -11,8 +11,8 @@ owner=$OWNER
 id=$ID
 chain=$CHAIN
 
-rpc_port=$($BINARY config | jq -r .node | cut -d : -f 3)
-json=$(curl -s localhost:$rpc_port/status | jq .result)
+rpc=$($BINARY config get client node | sed 's/\"//g')
+json=$(curl -s $rpc/status | jq .result)
 pid=$(pgrep $BINARY)
 version=$($BINARY version)
 foldersize1=$(du -hs $DATA | awk '{print $1}')
@@ -72,7 +72,7 @@ cat << EOF
     "chain":"$chain",
     "status":"$status",
     "message":"$message",
-    "rpcport":"$rpc_port",
+    "rpc":"$rpc",
     "folder1":"$foldersize1",
     "moniker":"$moniker",
     "key":"$KEY",

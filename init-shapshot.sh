@@ -22,7 +22,9 @@ sudo systemctl stop $BINARY.service
 cp $DATA/data/priv_validator_state.json $DATA/priv_validator_state.json.backup
 
 $BINARY tendermint unsafe-reset-all --home $DATA --keep-addr-book
-curl $LATEST_SNAPSHOT_URL | lz4 -dc - | tar -xf - -C $DATA
+
+if [ -z $SNAPSHOT_URL ] && read -p "Snapshot URL? " url || url=$SNAPSHOT_URL
+curl $url | lz4 -dc - | tar -xf - -C $DATA
 
 mv $DATA/priv_validator_state.json.backup $DATA/data/priv_validator_state.json
 

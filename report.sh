@@ -26,9 +26,9 @@ valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)
 moniker=$MONIKER
 pubkey=$($BINARY tendermint show-validator --log_format json | jq -r .key)
 delegators=$($BINARY query staking delegations-to $valoper -o json | jq '.delegation_responses | length')
-jailed=$($BINARY query staking validator $valoper -o json | jq -r .jailed)
+#jailed=$($BINARY query staking validator $valoper -o json | jq -r .jailed)
 if [ -z $jailed ]; then jailed=false; fi
-tokens=$($BINARY query staking validator $valoper -o json | jq -r .tokens | awk '{print $1/1000000}')
+#tokens=$($BINARY query staking validator $valoper -o json | jq -r .tokens | awk '{print $1/1000000}')
 balance=$($BINARY query bank balances $wallet -o json 2>/dev/null \
       | jq -r '.balances[] | select(.denom=="'$DENOM'")' | jq -r .amount)
 active=$(( $($BINARY query tendermint-validator-set --page 1 | grep -c $pubkey ) ))
@@ -101,6 +101,6 @@ then
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-    report,machine=$MACHINE,id=$id,moniker=$moniker,grp=$group,owner=$owner status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",tokens=\"$tokens\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\",network_height=\"$network_height\",local_height=\"$latest_block\" $(date +%s%N) 
+    report,machine=$MACHINE,id=$id,moniker=$moniker,grp=$grp,owner=$owner status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",tokens=\"$tokens\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\",network_height=\"$network_height\",local_height=\"$latest_block\" $(date +%s%N) 
     "
 fi

@@ -1,7 +1,8 @@
 #!/bin/bash
 
-folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
-source ~/scripts/$folder/cfg
+path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
+folder=$(echo $path | awk -F/ '{print $NF}')
+source $path/cfg
 source ~/.bash_profile
 
 read -p "Keys? (blank for all) " keys

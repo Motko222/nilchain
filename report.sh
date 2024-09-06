@@ -6,7 +6,7 @@ source $path/cfg
 source ~/.bash_profile
 
 network=testnet
-group=validator
+grp=validator
 owner=$OWNER
 id=$ID
 chain=$CHAIN
@@ -22,7 +22,6 @@ catchingUp=$(echo $json | jq -r .sync_info.catching_up)
 node_id=$(echo $json | jq -r .node_info.id)@$(echo $json | jq -r .node_info.listen_addr)
 votingPower=$($BINARY status 2>&1 | jq -r .ValidatorInfo.VotingPower)
 wallet=$(echo $PASS | $BINARY keys show $KEY -a)
-wallet_eth=$(echo "0x$($BINARY debug addr $(echo $PASS | $BINARY keys show $KEY -a) | grep hex | awk '{print $3}')")
 valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)
 moniker=$MONIKER
 pubkey=$($BINARY tendermint show-validator --log_format json | jq -r .key)
@@ -78,7 +77,6 @@ cat << EOF
     "moniker":"$moniker",
     "key":"$KEY",
     "wallet":"$wallet",
-    "wallet_eth":"$wallet_eth",
     "valoper":"$valoper",
     "pubkey":"$pubkey",
     "catchingUp":"$catchingUp",

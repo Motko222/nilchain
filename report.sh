@@ -64,10 +64,10 @@ cat >$json << EOF
   "updated":"$(date --utc +%FT%TZ)",
   "measurement":"report",
   "tags": {
-    "id":"$ID",
+    "id":"$folder",
     "machine":"$MACHINE",
-    "owner":"$owner",
-    "grp":"$grp" },
+    "owner":"$OWNER",
+    "grp":"validator" },
   "fields": {
     "version":"$version",
     "chain":"$chain",

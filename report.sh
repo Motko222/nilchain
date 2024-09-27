@@ -6,12 +6,6 @@ source $path/cfg
 source ~/.bash_profile
 json=~/logs/report-$folder
 
-network=testnet
-grp=validator
-owner=$OWNER
-id=$ID
-chain=$CHAIN
-
 rpc=$($BINARY config get client node | sed 's/\"//g' | sed 's/tcp:\/\///g')
 status_json=$(curl -s $rpc/status | jq .result)
 pid=$(pgrep $BINARY)
@@ -70,7 +64,8 @@ cat >$json << EOF
     "grp":"validator" },
   "fields": {
     "version":"$version",
-    "chain":"$chain",
+    "chain":"$CHAIN",
+    "network":"testnet",
     "status":"$status",
     "message":"$message",
     "rpc":"$rpc",

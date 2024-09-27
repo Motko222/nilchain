@@ -4,6 +4,7 @@ path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
 folder=$(echo $path | awk -F/ '{print $NF}')
 source $path/cfg
 source ~/.bash_profile
+json=~/logs/report-$folder
 
 network=testnet
 grp=validator
@@ -12,14 +13,14 @@ id=$ID
 chain=$CHAIN
 
 rpc=$($BINARY config get client node | sed 's/\"//g' | sed 's/tcp:\/\///g')
-json=$(curl -s $rpc/status | jq .result)
+status_json=$(curl -s $rpc/status | jq .result)
 pid=$(pgrep $BINARY)
 version=$($BINARY version)
 foldersize1=$(du -hs $DATA | awk '{print $1}')
-latest_block=$(echo $json | jq -r .sync_info.latest_block_height)
+latest_block=$(echo $status_json | jq -r .sync_info.latest_block_height)
 network_height=$(curl -s $PUBLIC_RPC/status | jq -r .result.sync_info.latest_block_height)
-catchingUp=$(echo $json | jq -r .sync_info.catching_up)
-node_id=$(echo $json | jq -r .node_info.id)@$(echo $json | jq -r .node_info.listen_addr)
+catchingUp=$(echo $status_json | jq -r .sync_info.catching_up)
+node_id=$(echo $status_json | jq -r .node_info.id)@$(echo $json | jq -r .node_info.listen_addr)
 votingPower=$($BINARY status 2>&1 | jq -r .ValidatorInfo.VotingPower)
 wallet=$(echo $PASS | $BINARY keys show $KEY -a)
 valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)
@@ -58,7 +59,7 @@ then status="offline";
 fi
 
 #json output
-cat << EOF
+cat >$json << EOF
 { 
   "updated":"$(date --utc +%FT%TZ)",
   "measurement":"report",
@@ -92,15 +93,4 @@ cat << EOF
 }
 EOF
 
-# send data to influxdb
-if [ ! -z $INFLUX_HOST ]
-then
- curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$INFLUX_BUCKET&precision=ns" \
-  --header "Authorization: Token $INFLUX_TOKEN" \
-  --header "Content-Type: text/plain; charset=utf-8" \
-  --header "Accept: application/json" \
-  --data-binary "
-    report,machine=$MACHINE,id=$id,moniker=$moniker,grp=$grp,owner=$owner status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",tokens=\"$tokens\",threshold=\"$threshold\",active=\"$active\",jailed=\"$jailed\",network_height=\"$network_height\",local_height=\"$latest_block\" $(date +%s%N) 
-    "
-fi
+cat $json

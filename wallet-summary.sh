@@ -16,9 +16,8 @@ echo   "------------------------------------------------------------------------
 for key in $keys
 do
    wallet=$(echo $PASS | $BINARY keys show $key -a) 
-   wallet_eth="0x$($BINARY debug addr $(echo $PASS | $BINARY keys show $key -a) | grep hex | awk '{print $3}')"
 #   balance=$($BINARY query bank balances $wallet | grep amount | awk '{print $3}' | sed 's/"//g' | awk '{print $1/1000000}')
-   balance=$($BINARY query bank balances $wallet -o json | jq '.balances[] | select(.denom=="ua0gi")' | jq -r .amount | awk '{print $1/1000000}')
+   balance=$($BINARY query bank balances $wallet -o json | jq '.balances[] | select(.denom=="unil")' | jq -r .amount | awk '{print $1/1000000}')
    [ -z $balance ] && balance="-"
 
 #   valoper=$(echo $PASS | $BINARY keys show $KEY --bech val | grep valoper | awk '{print $3}')

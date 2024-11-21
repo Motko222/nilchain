@@ -7,3 +7,4 @@ DATA=~/.nillionapp
 DENOM=unil
 CHAIN=nillion-chain-testnet-1
 MONIKER=
+GENESIS=https://snapshots.polkachu.com/testnet-genesis/nillion/genesis.json

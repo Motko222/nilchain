@@ -15,12 +15,17 @@ cd nillion
 git checkout v0.2.2
 make install
 
-#create cfg file
+# cosmovisor
+mkdir -p ~/.nillionapp/cosmovisor/genesis/bin
+mkdir -p ~/.nillionapp/cosmovisor/upgrades
+cp ~/go/bin/nilchaind ~/.nillionapp/cosmovisor/genesis/bin
+
+#create config file
 if [ -f ~/scripts/$folder/config ]
 then
  echo "Config exists."
 else
- cp ~/scripts/$folder/config.sample ~/scripts/$folder/cfg
+ cp ~/scripts/$folder/config.sample ~/scripts/$folder/config
  nano ~/scripts/$folder/config
 fi
 

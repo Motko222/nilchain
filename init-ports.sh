@@ -4,7 +4,7 @@ path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
 folder=$(echo $path | awk -F/ '{print $NF}')
 source $path/config
 
-read -p "Set? " $set
+read -p "Set? " set
 
 case $set in
  1) sed -i.bak -e "s%:26658%:27658%; s%:26657%:27657%; s%:6060%:6160%; s%:26656%:27656%; s%:26660%:27660%" $DATA/config/config.toml 
@@ -28,3 +28,4 @@ case $set in
     sed -i.bak -e "s%:26657%:31657%" $DATA/config/client.toml 
  ;;
  *) ;; #no change
+esac

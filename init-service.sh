@@ -2,9 +2,9 @@
 
 path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
 folder=$(echo $path | awk -F/ '{print $NF}')
-source $path/cfg
+source $path/config
 
-sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
+sudo tee /etc/systemd/system/$folder.service > /dev/null << EOF
 [Unit]
 Description=$BINARY node service
 After=network-online.target
@@ -25,4 +25,4 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
-sudo systemctl enable $BINARY.service
+sudo systemctl enable $folder.service

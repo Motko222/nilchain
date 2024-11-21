@@ -5,28 +5,26 @@ source ~/.bash_profile
 
 read -p "Tag? " tag
 
-sudo apt install -y unzip wget golang-go
-
 #remove old binary and repo
 rm $(which 0gchaind)
 rm -r ~/0g-chain
 
 #install binary
-cd ~
-git clone -b $tag https://github.com/0glabs/0g-chain.git
-./0g-chain/networks/testnet/install.sh
-source ~/.profile
+git clone TBD nillion
+cd nillion
+git checkout v0.2.2
+make install
 
 #create cfg file
-if [ -f ~/scripts/$folder/cfg ]
+if [ -f ~/scripts/$folder/config ]
 then
  echo "Config exists."
 else
- cp ~/scripts/$folder/cfg.sample ~/scripts/$folder/cfg
- nano ~/scripts/$folder/cfg
+ cp ~/scripts/$folder/config.sample ~/scripts/$folder/cfg
+ nano ~/scripts/$folder/config
 fi
 
-source ~/scripts/$folder/cfg
+source ~/scripts/$folder/config
 
 #check version
 $BINARY version

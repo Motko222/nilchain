@@ -12,7 +12,7 @@ rm -r ~/0g-chain
 #install binary
 git clone TBD nillion
 cd nillion
-git checkout v0.2.2
+git checkout $tag
 make install
 
 # cosmovisor

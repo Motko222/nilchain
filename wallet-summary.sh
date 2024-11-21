@@ -28,7 +28,7 @@ do
 #     | grep amount | awk '{print $2}' | sed 's/"//g' | awk '{print $1/1000000}' )
    [ -z $stake ] && stake="-"
 
-   stake=$($BINARY query staking delegations $wallet -o json | jq -r .delegation_responses[].delegation.shares | awk '{s+=$1} END {print s/1000000}')
+#   stake=$($BINARY query staking delegations $wallet -o json | jq -r .delegation_responses[].delegation.shares | awk '{s+=$1} END {print s/1000000}')
    [ -z $stake ] && stake="-"
 
    printf "%-12s %-9s %-9s %-12s \n" \

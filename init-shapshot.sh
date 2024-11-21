@@ -2,7 +2,7 @@
 
 path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
 folder=$(echo $path | awk -F/ '{print $NF}')
-source $path/cfg
+source $path/config
 source ~/.bash_profile
 
 read -p "Are you sure? " sure
@@ -11,7 +11,7 @@ case $sure in y|Y|yes|YES|Yes) ;; *) exit ;; esac
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="0"
-pruning_interval="10"
+pruning_interval="19"
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $DATA/config/app.toml
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $DATA/config/app.toml
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $DATA/config/app.toml

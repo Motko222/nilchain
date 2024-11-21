@@ -28,5 +28,5 @@ curl -s $url | lz4 -dc - | tar -xf - -C $DATA
 
 mv $DATA/priv_validator_state.json.backup $DATA/data/priv_validator_state.json
 
-sudo systemctl start $BINARY.service
-sudo journalctl -u $BINARY.service -f --no-hostname -o cat
+sudo systemctl start $folder.service
+sudo journalctl -u $folder.service -f --no-hostname -o cat

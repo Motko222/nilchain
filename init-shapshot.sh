@@ -24,7 +24,7 @@ cp $DATA/data/priv_validator_state.json $DATA/priv_validator_state.json.backup
 $BINARY tendermint unsafe-reset-all --home $DATA --keep-addr-book
 
 if [ -z $SNAPSHOT_URL ] && read -p "Snapshot URL? " url || url=$SNAPSHOT_URL
-curl $url | lz4 -dc - | tar -xf - -C $DATA
+curl -s $url | lz4 -dc - | tar -xf - -C $DATA
 
 mv $DATA/priv_validator_state.json.backup $DATA/data/priv_validator_state.json
 

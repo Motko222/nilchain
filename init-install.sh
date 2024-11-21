@@ -4,23 +4,24 @@ folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{prin
 source ~/.bash_profile
 
 # cosmovisor setup
-mkdir -p ~/.nillionapp/cosmovisor/genesis/bin
-mkdir -p ~/.nillionapp/cosmovisor/upgrades
-cp ~/go/bin/nilchaind ~/.nillionapp/cosmovisor/genesis/bin
+mkdir -p /root/.nillionapp/cosmovisor/genesis/bin
+mkdir -p /root/.nillionapp/cosmovisor/upgrades
+cp ~/go/bin/nilchaind /root/.nillionapp/cosmovisor/genesis/bin
 
 #download binary
-wget -O $HOME/.nillionapp/cosmovisor/genesis/bin/nilchaind https://snapshots.kjnodes.com/nillion-testnet/nilchaind-v0.2.2-linux-amd64
+wget -O /root/.nillionapp/cosmovisor/genesis/bin/nilchaind https://snapshots.kjnodes.com/nillion-testnet/nilchaind-v0.2.2-linux-amd64
+chmod +x /root/.nillionapp/cosmovisor/genesis/bin/nilchaind
 
 #create config file
 if [ -f ~/scripts/$folder/config ]
 then
  echo "Config exists."
 else
- cp ~/scripts/$folder/config.sample ~/scripts/$folder/config
- nano ~/scripts/$folder/config
+ cp /root/scripts/$folder/config.sample ~/scripts/$folder/config
+ nano /root/scripts/$folder/config
 fi
 
-source ~/scripts/$folder/config
+source /root/scripts/$folder/config
 
 #check version
 $BINARY version

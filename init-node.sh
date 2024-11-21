@@ -7,7 +7,7 @@ source $path/config
 
 # init node
 $BINARY init $MONIKER --chain-id=$CHAIN --home $DATA
-$BINARY config chain-id $CHAIN
+$BINARY config set client chain-id $CHAIN
 
 # genesis
 rm $DATA/config/genesis.json

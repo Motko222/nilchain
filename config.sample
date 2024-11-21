@@ -8,3 +8,4 @@ DENOM=unil
 CHAIN=nillion-chain-testnet-1
 MONIKER=
 GENESIS=https://snapshots.polkachu.com/testnet-genesis/nillion/genesis.json
+SNAPSHOT_URL=https://snapshots.kjnodes.com/nillion-testnet/snapshot_latest.tar.lz4

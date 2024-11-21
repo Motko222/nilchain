@@ -2,7 +2,7 @@
 
 path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
 folder=$(echo $path | awk -F/ '{print $NF}')
-source $path/cfg
+source $path/config
 source ~/.bash_profile
 
 valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)

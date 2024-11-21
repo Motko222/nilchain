@@ -12,6 +12,6 @@ $BINARY config chain-id $CHAIN
 # genesis
 rm $DATA/config/genesis.json
 wget -P $DATA/config $GENESIS
-$BINARY validate-genesis
+$BINARY genesis validate
 
 

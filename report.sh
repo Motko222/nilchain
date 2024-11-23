@@ -22,7 +22,7 @@ moniker=$MONIKER
 pubkey=$($BINARY tendermint show-validator --log_format json | jq -r .key)
 delegators=$($BINARY query staking delegations-to $valoper -o json | jq '.delegation_responses | length')
 #jailed=$($BINARY query staking validator $valoper -o json | jq -r .jailed)
-if [ -z $jailed ]; then jailed=false; fi
+[ -z $jailed ] && jailed=false
 tokens=$($BINARY query staking validator $valoper -o json | jq -r .validator.tokens | awk '{print $1/1000000}')
 balance=$($BINARY query bank balance $wallet unil -o json 2>/dev/null \
       | jq -r '.balance | select(.denom=="'$DENOM'")' | jq -r .amount)
@@ -32,24 +32,22 @@ threshold=$($BINARY query tendermint-validator-set --page 1 -o json | jq -r .val
 
 if $catchingUp
  then 
-  status="syncing"
-  message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+  status="syncing"; message="height $latest_block/$network_height left $(( network_height - latest_block ))";
  else 
   if [ $active -eq 1 ]; 
-   then status=active; 
-   else status=inactive;message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+   then status=active; message="height $latest_block/$network_height left $(( network_height - latest_block ))";  
+   else status=inactive; message="height $latest_block/$network_height left $(( network_height - latest_block ))";
  fi
 fi
 
 if $jailed
  then
-  status="jailed"
-  message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+  status="jailed"; message="height $latest_block/$network_height left $(( network_height - latest_block ))";
 fi 
 
 if [ -z $pid ];
-then status="offline";
- message="process not running";
+ then 
+  status="offline"; message="process not running";
 fi
 
 #json output

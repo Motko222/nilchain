@@ -13,7 +13,8 @@ source ~/.bash_profile
 wallet=$(echo $PASS | $BINARY keys show $key -a)
 balance=$($BINARY query bank balances $wallet -o json 2>/dev/null | jq -r '.balances[] | select(.denom=="'$DENOM'")' | jq -r .amount)
 echo "Balance: $balance $DENOM"
-
+echo "Delegations:"
+$BINARY query staking delegations $wallet -o json | jq -c -r '.delegation_responses[] |  [ .balance.amount, .delegation.validator_address ]'
 def_valoper=$(echo $PASS | $BINARY keys show $KEY -a --bech val)
 [ -z $2 ] && read -p "To valoper (default $def_valoper) ? " valoper || valoper=$2
 [ -z $valoper ] && valoper=$def_valoper

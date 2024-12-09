@@ -8,14 +8,10 @@ source ~/.bash_profile
 read -p "Are you sure? " sure
 case $sure in y|Y|yes|YES|Yes) ;; *) exit ;; esac
 
-pruning="custom"
-pruning_keep_recent="100"
-pruning_keep_every="0"
-pruning_interval="19"
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $DATA/config/app.toml
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $DATA/config/app.toml
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $DATA/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $DATA/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$PRUNING\"/" $DATA/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$PRUNING_KEEP_RECENT\"/" $DATA/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$PRUNING_KEEP_EVERY\"/" $DATA/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$PRUNING_INTERVAL\"/" $DATA/config/app.toml
 
 sudo systemctl stop $BINARY.service
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
-
-source $folder/config
+path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
+folder=$(echo $path | awk -F/ '{print $NF}')
+source $path/config
 source ~/.bash_profile
 
 # cosmovisor setup

@@ -21,6 +21,7 @@ mkdir -p $DATA/cosmovisor/upgrades
 #download binary
 wget -O $DATA/cosmovisor/genesis/bin/$BINARY https://snapshots.kjnodes.com/nillion-testnet/nilchaind-v0.2.2-linux-amd64
 chmod +x $DATA/cosmovisor/genesis/bin/$BINARY
+cp $DATA/cosmovisor/genesis/bin/$BINARY /root/go/bin
 
 #check version
 $BINARY version

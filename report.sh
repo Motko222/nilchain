@@ -59,7 +59,7 @@ cat >$json << EOF
     "id":"$folder",
     "machine":"$MACHINE",
     "owner":"$OWNER",
-    "grp":"validator" 
+    "grp":"node" 
  },
   "fields": {
     "version":"$version",
@@ -67,23 +67,13 @@ cat >$json << EOF
     "network":"testnet",
     "status":"$status",
     "message":"$message",
-    "rpc":"$rpc",
-    "folder1":"$foldersize1",
-    "moniker":"$moniker",
-    "key":"$KEY",
+    "url":"$rpc",
+    "url2":"mon=$moniker key=$KEY val=$valoper pubkey=$pubkey",
     "wallet":"$wallet",
-    "valoper":"$valoper",
-    "pubkey":"$pubkey",
-    "catchingUp":"$catchingUp",
-    "jailed":"$jailed",
-    "active":"$active",
-    "local_height":"$latest_block",
-    "network_height":"$network_height",
-    "votingPower":"$votingPower",
-    "tokens":"$tokens",
-    "threshold":"$threshold",
-    "delegators":"$delegators",
-    "balance":"$balance" 
+    "height":"$latest_block",
+    "m1":"tok=$tokens thr=$threshold" vp=votingPower,
+    "m2":"bal=$balance del=$delegators neth=$network_height",
+    "m3":"act=$active jail=$jailed catch=$catchingUp size=$foldersize1"
   }
 }
 EOF

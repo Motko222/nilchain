@@ -35,19 +35,19 @@ if $catchingUp
   status="syncing"; message="height $latest_block/$network_height left $(( network_height - latest_block ))";
  else 
   if [ $active -eq 1 ]; 
-   then status=active; message="height $latest_block/$network_height left $(( network_height - latest_block ))";  
-   else status=inactive; message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+   then status=ok; message="active, height $latest_block/$network_height left $(( network_height - latest_block ))";  
+   else status=ok; message="inactive, height $latest_block/$network_height left $(( network_height - latest_block ))";
  fi
 fi
 
 if $jailed
  then
-  status="jailed"; message="height $latest_block/$network_height left $(( network_height - latest_block ))";
+  status="warning"; message="jailed, height $latest_block/$network_height left $(( network_height - latest_block ))";
 fi 
 
 if [ -z $pid ];
  then 
-  status="offline"; message="process not running";
+  status="error"; message="process not running";
 fi
 
 #json output

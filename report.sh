@@ -71,7 +71,7 @@ cat >$json << EOF
     "url2":"mon=$moniker key=$KEY val=$valoper pubkey=$pubkey",
     "wallet":"$wallet",
     "height":"$latest_block",
-    "m1":"tok=$tokens thr=$threshold" vp=votingPower",
+    "m1":"tok=$tokens thr=$threshold vp=votingPower",
     "m2":"bal=$balance del=$delegators neth=$network_height",
     "m3":"act=$active jail=$jailed catch=$catchingUp size=$foldersize1"
   }
